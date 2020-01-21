@@ -42,10 +42,38 @@ export const Owner = styled.header`
   }
 `;
 
+export const BoxDivider = styled.form`
+  display: flex;
+  flex-direction: row;
+  padding: 15px 0 15px 0;
+  margin: 15px 0 15px 0;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+
+  div {
+    color: #eee;
+    width: 100%;
+    border-top: 1px solid #eee;
+    margin-right: 10px;
+  }
+
+  p {
+    white-space: nowrap;
+    font-size: 14px;
+    color: #667;
+    line-height: 1.4;
+    text-align: center;
+    margin-right: 10px;
+  }
+
+  select {
+    border: 1px solid #ddd;
+    border-radius: 2px;
+  }
+`;
+
 export const IssueList = styled.ul`
-  padding-top: 30px;
-  margin-top: 30px;
-  border-top: 1px solid #eee;
   list-style: none;
 
   li {
