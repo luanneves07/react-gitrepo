@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export const Owner = styled.header`
   display: flex;
@@ -122,7 +122,7 @@ export const IssueList = styled.ul`
 
 export const NavButton = styled.button.attrs(props => ({
   type: 'submit',
-  navigate: props.navigate,
+  disabled: props.disabled,
 }))`
   display: flex;
   flex-direction: row;
@@ -131,12 +131,10 @@ export const NavButton = styled.button.attrs(props => ({
   border: 4px solid #ddd;
   border-radius: 2px;
 
-  ${props =>
-    !props.navigate &&
-    css`
-      cursor: not-allowed;
-      opacity: 0.6;
-    `}
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
 `;
 
 export const SectionNav = styled.nav`

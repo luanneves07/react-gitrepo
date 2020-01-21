@@ -60,21 +60,53 @@ export default class Repository extends Component {
     });
   }
 
-  handleChange = async e => {
-    e.preventDefault();
-    const { repository } = this.state;
-    const selectedFilter = e.target.value;
-    this.setState({ loading: true });
-
+  loadIssues = async () => {
+    const { repository, filtering, page } = this.state;
     const filteredIssues = await api.get(
-      `/repos/${repository.full_name}/issues?state=${selectedFilter}`
+      `/repos/${repository.full_name}/issues`,
+      {
+        params: {
+          state: filtering,
+          per_page: 5,
+          page,
+        },
+      }
     );
 
     this.setState({
-      filtering: selectedFilter,
       issues: filteredIssues.data,
       loading: false,
     });
+  };
+
+  handleChange = async e => {
+    e.preventDefault();
+    const selectedFilter = e.target.value;
+    await this.setState({
+      page: 1,
+      filtering: selectedFilter,
+      loading: true,
+    });
+
+    this.loadIssues();
+  };
+
+  handleClick = async action => {
+    const { page } = this.state;
+    const nextPage =
+      action === 'back'
+        ? parseInt(-1, 10) + parseInt(page, 10)
+        : parseInt(1, 10) + parseInt(page, 10);
+    if (nextPage < 1) {
+      return;
+    }
+
+    await this.setState({
+      page: nextPage,
+      loading: false,
+    });
+
+    this.loadIssues();
   };
 
   render() {
@@ -99,9 +131,9 @@ export default class Repository extends Component {
             <select>Loading</select>
           </BoxDivider>
           <SectionNav>
-            <NavButton navigate={false}>Anterior</NavButton>
+            <NavButton disabled={false}>Anterior</NavButton>
             <div />
-            <NavButton navigate={false}>Próxima</NavButton>
+            <NavButton disabled={false}>Próxima</NavButton>
           </SectionNav>
         </Container>
       );
@@ -145,9 +177,21 @@ export default class Repository extends Component {
           ))}
         </IssueList>
         <SectionNav>
-          <NavButton navigate={page > 1}>Anterior</NavButton>
+          <NavButton
+            action="back"
+            onClick={() => this.handleClick('back')}
+            disabled={page < 2}
+          >
+            Anterior
+          </NavButton>
           <div />
-          <NavButton navigate={issues.length}>Próxima</NavButton>
+          <NavButton
+            action="next"
+            onClick={() => this.handleClick('next')}
+            disabled={issues.length < 5}
+          >
+            Próxima
+          </NavButton>
         </SectionNav>
       </Container>
     );

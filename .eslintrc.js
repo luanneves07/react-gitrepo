@@ -26,6 +26,7 @@ module.exports = {
     'prettier'
   ],
   rules: {
+    // 'no-plusplus': 'false',
     'prettier/prettier': 'error',
     'react/state-in-constructor': 'off',
     'react/static-property-placement': 'off',
