@@ -47,7 +47,13 @@ export default class Main extends Component {
 
     this.setState({ loading: true });
 
+    const isDuplicated = repositories.filter(repo => repo === newRepo);
+
     try {
+      if (isDuplicated) {
+        throw new Error('Repositório duplicado');
+      }
+
       const res = await api.get(`/repos/${newRepo}`);
       const data = {
         name: res.data.full_name,
