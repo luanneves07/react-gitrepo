@@ -62,6 +62,7 @@ export default class Main extends Component {
         repositories: [...repositories, data],
         newRepo: '',
         loading: false,
+        error: false,
       });
     } catch (error) {
       this.setState({ error: true });
