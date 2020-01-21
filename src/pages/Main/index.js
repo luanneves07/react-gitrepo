@@ -47,7 +47,7 @@ export default class Main extends Component {
 
     this.setState({ loading: true });
 
-    const isDuplicated = repositories.filter(repo => repo === newRepo);
+    const isDuplicated = repositories.find(repo => repo.name === newRepo);
 
     try {
       if (isDuplicated) {
