@@ -96,12 +96,7 @@ export default class Repository extends Component {
           <BoxDivider>
             <div />
             <p>Filtrar issues:</p>
-            <select>
-              <option key="all" value="Todas">
-                Todas
-              </option>
-              ))
-            </select>
+            <select>Loading</select>
           </BoxDivider>
           <SectionNav>
             <NavButton navigate={false}>Anterior</NavButton>
@@ -152,7 +147,7 @@ export default class Repository extends Component {
         <SectionNav>
           <NavButton navigate={page > 1}>Anterior</NavButton>
           <div />
-          <NavButton navigate>Próxima</NavButton>
+          <NavButton navigate={issues.length}>Próxima</NavButton>
         </SectionNav>
       </Container>
     );
