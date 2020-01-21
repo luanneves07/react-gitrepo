@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import api from '../../services/api';
 
 import Container from '../../components/Container';
-import { Loading, Owner, IssueList, BoxDivider } from './styles';
+import { Owner, IssueList, BoxDivider, SectionNav, NavButton } from './styles';
 
 export default class Repository extends Component {
   static propTypes = {
@@ -35,6 +35,7 @@ export default class Repository extends Component {
       },
     ],
     filtering: 'all',
+    page: 1,
   };
 
   async componentDidMount() {
@@ -83,10 +84,32 @@ export default class Repository extends Component {
       loading,
       availableFilters,
       filtering,
+      page,
     } = this.state;
 
     if (loading) {
-      return <Loading>Carregando</Loading>;
+      return (
+        <Container>
+          <Owner>
+            <Link to="/">Voltar aos repositórios</Link>
+          </Owner>
+          <BoxDivider>
+            <div />
+            <p>Filtrar issues:</p>
+            <select>
+              <option key="all" value="Todas">
+                Todas
+              </option>
+              ))
+            </select>
+          </BoxDivider>
+          <SectionNav>
+            <NavButton navigate={false}>Anterior</NavButton>
+            <div />
+            <NavButton navigate={false}>Próxima</NavButton>
+          </SectionNav>
+        </Container>
+      );
     }
 
     return (
@@ -126,6 +149,11 @@ export default class Repository extends Component {
             </li>
           ))}
         </IssueList>
+        <SectionNav>
+          <NavButton navigate={page > 1}>Anterior</NavButton>
+          <div />
+          <NavButton navigate>Próxima</NavButton>
+        </SectionNav>
       </Container>
     );
   }

@@ -1,14 +1,4 @@
-import styled from 'styled-components';
-
-export const Loading = styled.div`
-  color: #fff;
-  font-size: 30px;
-  font-weight: bold;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-`;
+import styled, { css } from 'styled-components';
 
 export const Owner = styled.header`
   display: flex;
@@ -127,5 +117,42 @@ export const IssueList = styled.ul`
         color: #999;
       }
     }
+  }
+`;
+
+export const NavButton = styled.button.attrs(props => ({
+  type: 'submit',
+  navigate: props.navigate,
+}))`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: 4px solid #ddd;
+  border-radius: 2px;
+
+  ${props =>
+    !props.navigate &&
+    css`
+      cursor: not-allowed;
+      opacity: 0.6;
+    `}
+`;
+
+export const SectionNav = styled.nav`
+  display: flex;
+  flex-direction: row;
+  padding: 10px 0 0 0;
+  margin: 10px 0 0 0;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+
+  div {
+    color: #eee;
+    width: 100%;
+    border-top: 1px solid #eee;
+    margin-right: 10px;
+    margin-left: 10px;
   }
 `;
